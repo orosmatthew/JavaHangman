@@ -9,36 +9,36 @@ public class Hangman {
 		char[] blanks = setUpGameBoard(word);
 		boolean gameExit = false; //If true, exit game loop
 		while(gameExit == false){ //Main loop
-            for(int i=50;i>=0;i--) //Print 50 lines instead of clearing console
-                System.out.println("");
-            String endGame = isEndGame(word,blanks,score,bodyParts); //Test if the game ended
-            //What to do if game ended
-            if(endGame.equals("win")){
-                endGame(true,word,blanks);
-                gameExit=true;
-            }
-            else if(endGame.equals("lose")){
-                endGame(false,word,blanks);
-                gameExit=true;
-            }
-            //Display Game Components
-            displayLettersGuessed(lettersGuessed);
-            displayGallows(bodyParts);
-			displayGameBoard(blanks, lettersGuessed);
+        for(int i=50;i>=0;i--) //Print 50 lines instead of clearing console
+            System.out.println("");
+        String endGame = isEndGame(word,blanks,score,bodyParts); //Test if the game ended
+        //What to do if game ended
+        if(endGame.equals("win")){
+            endGame(true,word,blanks);
+            gameExit=true;
+        }
+        else if(endGame.equals("lose")){
+            endGame(false,word,blanks);
+            gameExit=true;
+        }
+        //Display Game Components
+        displayLettersGuessed(lettersGuessed);
+        displayGallows(bodyParts);
+        displayGameBoard(blanks, lettersGuessed);
 
-            if (gameExit==true){
-                input.close();
-                break;
-            }
-            //handle user input
-			System.out.print("Guess a letter: ");
-			char guessChar = input.nextLine().charAt(0);
-			int num = checkGuess(guessChar, word, blanks, lettersGuessed);
-            //handle scoring
-            if (num==0)
-                bodyParts++;
-            else if(num>0)
-                score+=num;
+        if (gameExit==true){
+            input.close();
+            break;
+        }
+        //handle user input
+		System.out.print("Guess a letter: ");
+		char guessChar = input.nextLine().charAt(0);
+		int num = checkGuess(guessChar, word, blanks, lettersGuessed);
+        //handle scoring
+        if (num==0)
+            bodyParts++;
+        else if(num>0)
+            score+=num;
 		}
 	}
     //returns random word from wordBank
@@ -55,13 +55,14 @@ public class Hangman {
 	}
     //Displays letters already guessed by user
     public static void displayLettersGuessed(char[] lettersGuessed){
-        System.out.print("Letters Guessed: ");
-        for(int i=0;i<lettersGuessed.length;i++)
-            if(lettersGuessed[i]!=0)
-                if(i==0)
-                    System.out.print(lettersGuessed[i]);
-                else
-                    System.out.print(","+lettersGuessed[i]);
+      System.out.print("Letters Guessed: ");
+      for(int i=0;i<lettersGuessed.length;i++)
+        if(lettersGuessed[i]!=0){
+            if(i==0)
+                System.out.print(lettersGuessed[i]);
+            else
+                System.out.print(","+lettersGuessed[i]);
+        }
         System.out.println("");
     }
     //Displays blanks array 
@@ -85,12 +86,12 @@ public class Hangman {
 		}
         lettersGuessed[numLettersGuessed] = g;
         for(int i=0;i<w.length();i++){
-            if(g==w.charAt(i) && blanks[i]!=g){
-                n++;
-                blanks[i]=g;
-            }
+        if(g==w.charAt(i) && blanks[i]!=g){
+            n++;
+            blanks[i]=g;
         }
-        return n;
+    }
+    return n;
     }
     //Returns "win", "lose", or "" to test if game has ended
     public static String isEndGame(String w, char[] b, int s, int body){
